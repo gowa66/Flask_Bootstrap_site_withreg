@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <body>
+
+    <!-- SIGN IN
+    ============================== -->
+    <div class="sign-in-up__wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+
+            <h4 class="heading sign-in-up__heading">Sign in</h4>
+            <p class="heading__sub sign-in-up-heading__sub">
+              Proin tempus efficitur euismod. Suspendisse ornare <br />nibh eu porttitor dapibus.
+            </p>           
+
+            <form class="form_alt sign-in-up__form" role="form" action="" method="post">
+              <div class="form-group">
+                <label for="sign-in__username" class="sr-only">Username</label>
+                <input type="text" class="form-control" id="sign-in__username" placeholder="Username" name="username" value="{{ request.form.username }}">
+              </div>
+              <div class="form-group">
+                <label for="sign-in__password" class="sr-only">Password</label>
+                <input type="password" class="form-control" id="sign-in__password" placeholder="Password" name="password" value="{{ request.form.password }}">
+              </div>
+             
+              <button type="submit" class="btn btn-block btn-primary" value="Login">Sign in</button>
+            </form>
+            {% if error %}
+            <p class="heading__sub sign-in-up-heading__sub">Error<br /> {{ error }}</p>
+            {% endif %}            
+            <!-- Sign Up link -->
+            <div class="sign-in-up__footer">
+              Not registered? <a href="sign-up.html">Create an Account</a>
+            </div>
+
+          </div>
+        </div>
+      </div> <!-- / .container -->
+    </div> <!-- / .sign-in-up__wrapper -->
+    
+
+{% endblock %}
