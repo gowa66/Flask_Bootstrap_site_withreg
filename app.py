@@ -10,6 +10,7 @@ app = Flask(__name__)
 # config
 import os
 app.config.from_object(os.environ['APP_SETTINGS'])
+print os.environ['APP_SETTINGS']
 
 # create the sqlalchemy object
 db = SQLAlchemy(app)
@@ -30,11 +31,19 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-	# g.db = connect_db()
-	# cur = g.db.execute('select * from posts')
-	# posts = [dict(title=row[0], description=row[1]) for row in cur.fetchall()]
-	# g.db.close() 
-	return render_template("home.html")
+	posts = []
+	try:
+
+		g.db = connect_db()
+		cur = g.db.execute('select * from posts')
+
+		for row in cur.fetchall():
+			posts.append(dict(title=row[0], description=row[1]))
+	
+		g.db.close()
+	except sqlite3.OperationalError:
+		flash("You have no database!") 
+	return render_template("home.html", posts=posts)
 
 
 
