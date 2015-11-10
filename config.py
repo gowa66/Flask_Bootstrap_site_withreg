@@ -3,14 +3,16 @@ import os
 
 # default config
 class BaseConfig(object):
-	DEBUG = False
-	SECRET_KEY = ';\x9a\x7f\xea\xf5\xfc\xb3\x83\xcc\x92\x88\x93Z\xdf\x95\xf9\xf5Np:|\xdfF\xc4'
-	SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    DEBUG = False
+    # shortened for readability
+    SECRET_KEY = '\xbf\xb0\x11\xb1\xcd\xf9\xba\x8bp\x0c...'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    print SQLALCHEMY_DATABASE_URI
 
 
 class DevelopmentConfig(BaseConfig):
-	DEBUG = True
+    DEBUG = True
 
 
 class ProductionConfig(BaseConfig):
-	DEBUG = False
+    DEBUG = False
