@@ -1,24 +1,28 @@
+# import the Flask class from the flask module
 from flask import Flask, render_template, redirect, url_for, request, session, flash, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from functools import wraps 
 # import sqlite3
 
-
+# create the aplication object
 app = Flask(__name__)
 
-app.secret_key = 'secret_key'
-# app.datebase = "sample.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+# config
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])
 
+# create the sqlalchemy object
 db = SQLAlchemy(app)
 
+
+
+# login required decorator
 def login_required(f):
 	@wraps(f)
 	def wrap(*args, **kwargs):
 		if 'logged_in' in session:
 			return f(*args, **kwargs)
 		else:
-			flash('You need to login first.')
 			return redirect(url_for('login'))
 	return wrap
 
@@ -57,6 +61,6 @@ def logout():
 # 	return sqlite3.connect(app.datebase)
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
 
 
