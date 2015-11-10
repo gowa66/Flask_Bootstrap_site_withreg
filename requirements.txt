@@ -12,3 +12,4 @@ itsdangerous==0.24
 requests==2.8.1
 requests-futures==0.9.5
 wsgiref==0.1.2
+psycopg2==2.6.1
