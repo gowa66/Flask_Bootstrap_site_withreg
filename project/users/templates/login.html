@@ -5,7 +5,7 @@
 
   <body>
 
-    <!-- SIGN IN
+<!-- SIGN IN
     ============================== -->
     <div class="sign-in-up__wrapper">
       <div class="container">
@@ -17,21 +17,37 @@
               Proin tempus efficitur euismod. Suspendisse ornare <br />nibh eu porttitor dapibus.
             </p>           
 
-            <form class="form_alt sign-in-up__form" role="form" action="" method="post">
-              <div class="form-group">
-                <label for="sign-in__username" class="sr-only">Username</label>
-                <input type="text" class="form-control" id="sign-in__username" placeholder="Username" name="username" value="{{ request.form.username }}">
+            <form class="form_alt sign-in-up__form" role="form" method="post" action="">
+              <div class="form-group" >
+                {{ form.csrf_token }}
+                <input type="text" class="form-control" {{ form.username(placeholder="Username") }}
+
               </div>
-              <div class="form-group">
-                <label for="sign-in__password" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="sign-in__password" placeholder="Password" name="password" value="{{ request.form.password }}">
+              <div class="checkbox">
+              {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                  {{ error }}
+                {% endfor %}
+              {% endif %}
               </div>
-             
-              <button type="submit" class="btn btn-block btn-primary" value="Login">Sign in</button>
+              <div class="form-group">            
+                <input type="password" class="form-control" {{ form.password(placeholder="Password") }}
+              </div>
+              <div class="checkbox">
+              {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                  {{ error }}
+                {% endfor %}
+              {% endif %}
+              </div>
+              <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+              <div class="checkbox">
+              {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}</p>
+              {% endif %}
+              </div>
             </form>
-            {% if error %}
-            <p class="heading__sub sign-in-up-heading__sub">Error<br /> {{ error }}</p>
-            {% endif %}            
+
             <!-- Sign Up link -->
             <div class="sign-in-up__footer">
               Not registered? <a href="sign-up.html">Create an Account</a>
@@ -41,6 +57,7 @@
         </div>
       </div> <!-- / .container -->
     </div> <!-- / .sign-in-up__wrapper -->
+
     
 
 {% endblock %}
