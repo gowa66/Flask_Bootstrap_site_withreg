@@ -4,7 +4,7 @@
 
 from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
-from app import app
+
 
 from functools import wraps
 
@@ -48,7 +48,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in.')
-            return redirect(url_for('home'))
+            return redirect(url_for('home.home'))
     return render_template('login.html', error=error)
 
 
@@ -56,4 +56,4 @@ def login():
 @login_required
 def logout():
     session.pop('logged_in', None)
-    return redirect(url_for('home'))
+    return redirect(url_for('home.home'))
