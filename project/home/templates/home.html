@@ -13,37 +13,15 @@
           <span class="oi oi-x"></span>
         </div>
 
-        <div class="sidebar__form form_alt">
-          <form>
-            <div class="form-group">
-              <label class="sr-only" for="login__username">Username</label>
-              <input type="text" class="form-control" id="login__username" placeholder="Username">
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="login__password">Password</label>
-              <input type="password" class="form-control" id="login__password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-block btn-primary">Sign In</button>
-          </form>
-        </div>
-
         <h4 class="sidebar__heading">
-          Layouts
+          Pages
         </h4>
         <ul class="sidebar__menu">
-          <li><a href="index_agency.html">Agency</a></li>
-          <li><a href="index_app.html">App</a></li>
-          <li><a href="index_sign-up.html">Sign Up</a></li>
-        </ul>
-
-        <h4 class="sidebar__heading">
-          Bonus pages
-        </h4>
-        <ul class="sidebar__menu">
+          <li><a href="/">Home</a></li>
           <li><a href="/login">Log In</a></li>
           <li><a href="/logout">Log Out</a></li>
-          <li><a href="sign-up.html">Sign Up</a></li>
-          <li><a href="coming-soon.html">Coming Soon</a></li>
+          <li><a href="/register">Registration</a></li>
+          
         </ul>
 
         <div class="sidebar__logo">
@@ -73,12 +51,11 @@
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right ">
               <li class="active"><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact Us</a></li>
               <li><a href="#portfolio">Portfolio</a></li>
               <li><a href="#pricing">Pricing</a></li>
               <li><a href="#team">Team</a></li>
               <li><a href="#skills">Skills</a></li>
-              <li><a href="#contact">Contact Us</a></li>
               <li class="hidden-xs">
                 <p class="navbar-text navbar__separator"></p>
               </li>
@@ -110,14 +87,10 @@
               <p class="heading__sub hero-heading__sub animated fadeInUp delay_1">
                 Curabitur ac ex eu nisl blandit rhoncus. Duis posuere eleifend nibh, in pulvinar elit vestibulum quis.<br /> Vivamus sed dolor sit amet lorem efficitur facilisis.
               </p>
-              
-              {% for message in get_flashed_messages() %}
-                <h2 class="heading hero__heading animated fadeInUp">{{ message }}</h2>
-              {% endfor %}
 
               <!-- Hero buttons -->
-              <a href="#" class="hero__btn btn btn-lg btn-primary animated fadeInUp delay_2">Primary action</a> 
-              <a href="#about" class="hero__btn btn btn-lg btn-link animated fadeInUp delay_2">Find out more</a>
+              <a href="" class="hero__btn btn btn-lg btn-primary animated fadeInUp delay_2">Primary action</a> 
+              <a href="" class="hero__btn btn btn-lg btn-link animated fadeInUp delay_2">Find out more</a>
 
             </div>
           </div> <!-- / .row -->
@@ -126,6 +99,117 @@
 
     
       <div class="section" id="about">
+
+      
+        <!-- CONTACT US
+      ============================== -->
+      <div class="container" id="contact">
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h4 class="heading">Feel free to contact us</h4>
+            <p class="heading__sub">
+              Donec blandit ex vitae lectus malesuada ullamcorper. Praesent tempor pharetra leo, id mollis.<br />Aliquam at venenatis velit. Praesent tincidunt aliquet lectus, et auctor ex. 
+            </p>
+          </div>
+        </div> <!-- / .row -->
+
+        <div class="row">
+          <div class="col-sm-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+
+            <!-- Alert message -->
+            <div class="alert contact-form__alert" id="form_message" role="alert"></div>
+
+            <!-- Contact form -->
+            <!-- Please carefully read the README.txt file
+             in order to setup the PHP contact form properly -->
+            <form role="form" class="contact__form"  method="post" action="/">
+              <div class="row">           
+                  {{ form.csrf_token }}
+                  <!-- Name -->
+                  <div class="form-group">
+                    
+                    <input type="text"  class="form-control" {{ form.title(placeholder="Title") }}
+                    <span class="help-block">
+                    {% if form.title.errors %}
+                      {% for error in form.title.errors %}
+                        {{ error }}
+                      {% endfor %}
+                    {% endif %}
+                    </span>
+                  </div>
+
+                  <!-- Message -->
+                  <div class="form-group">
+                    
+                    <input type="text"  class="form-control"{{ form.description(placeholder="Description") }}</textarea>
+                    <span class="help-block">
+                    {% if form.description.errors %}
+                      {% for error in form.description.errors %}
+                        {{ error }}
+                      {% endfor %}
+                    {% endif %}                      
+                    </span>
+                  </div>
+
+                  <!-- Button -->
+                  <div class="text-center"> 
+                    <button  class="btn btn-primary" type="submit">Send message</button>
+                  </div>
+
+                </div>
+
+            </form>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+
+      <!-- TESTIMONIALS
+      ============================== -->
+      <div class="section" id="testimonials">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="review__icon">
+                <span class="oi oi-double-quote-serif-left"></span>
+              </div>
+              <h4 class="heading">What others say about us</h4>
+            </div>
+          </div> <!-- / .row -->
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+              <!-- Wrapper for slides -->
+              <div id="review__carousel" class="owl-carousel owl-theme">
+                {% for post in posts %}
+                <div class="item">
+                  <div class="review__item">
+                    <div class="review-item__quot">
+                      {{ post.description }}
+                    </div>
+                    <div class="review-item__about">
+                      <div class="review-item-about__avatar">
+                        <img class="img-responsive" src="static/img/author_1.jpg" alt="...">
+                      </div>
+                      <div class="review-item-about__content">
+                        <div class="review-item-about__name">{{ post.author.name }}</div>
+                        <div class="review-item-about__position">{{ post.title }}</div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div> <!-- / .review__item -->
+                </div>
+                {% endfor %} 
+                
+
+              </div> <!-- / .review__carousel -->
+
+            </div>
+          </div> <!-- / .row -->
+        </div>
+      </div>
+
+
 
         <!-- ABOUT
         ============================== -->
@@ -145,25 +229,21 @@
         ============================== -->
         <div class="container">
           <div class="row">
-          {% for post in posts %}
-          
-          
             <div class="col-sm-4">
               <div class="features__item wow fadeIn">
                 <div class="features-item__icon">
-                  {{ post.author.name }}
+                  <span class="oi oi-project"></span>
                 </div>
                 <div class="features-item__body">
-                  <div class="features-item-body_ _title">
-                  {{ post.title }}
+                  <div class="features-item-body__title">
+                    Nam molestie lacinia lorem
                   </div>
                   <div class="features-item-body__summary">
-                  {{ post.description }}
+                    Morbi vitae congue justo. In eleifend mauris quam, non lacinia velit scelerisque nec. Aenean ut sem ut mauris fermentum blandit vitae vitae velit.
                   </div>
                 </div> <!-- / .features-item__body -->
               </div> <!-- / .features__item -->
             </div>
-          {% endfor %}
             <div class="col-sm-4">
               <div class="features__item wow fadeIn">
                 <div class="features-item__icon">
@@ -253,7 +333,7 @@
                 <p class="heading__sub">
                   Sed erat tortor, bibendum at sem in, malesuada ultricies eros. Integer maximus scelerisque sapien ut porta. Nulla tempor rutrum enim vitae lobortis. Quisque varius, ante in aliquet semper.
                 </p>
-                <a href="index_agency.html#" class="btn btn-default heading__btn">Primary action</a>
+                <a href="" class="btn btn-default heading__btn">Primary action</a>
               </div>
               <div class="col-sm-7 col-sm-height col-middle">
                 <img src="static/img/showcase.png" alt="..." class="img-responsive">
@@ -457,7 +537,7 @@
               <p class="heading__sub">
                 Phasellus gravida sem magna, nec maximus quam tincidunt non. Cras molestie nec libero nec hendrerit. Morbi imperdiet, lorem nec rhoncus vehicula, quam orci finibus dolor, non malesuada orci turpis eleifend neque.
               </p>
-              <a href="index_agency.html#contact" class="btn btn-lg btn-primary heading__btn wow fadeInUp">Primary action</a>
+              <a href="" class="btn btn-lg btn-primary heading__btn wow fadeInUp">Primary action</a>
             </div>
           </div> <!-- / .row -->
         </div> <!-- / .container -->
@@ -489,7 +569,7 @@
                   <div class="pricing-item__summary">
                     Praesent scelerisque dui nec nibh maximus elementum. Suspendisse sagittis odio sed volutpat ornare. Fusce ac vestibulum nibh.
                   </div>
-                  <a href="index_agency.html#" class="btn btn-default">
+                  <a href="" class="btn btn-default">
                     <span class="oi oi-cart"></span> Purchase now
                   </a>
                 </div> <!-- / .pricing__items -->
@@ -505,7 +585,7 @@
                   <div class="pricing-item__summary">
                     Praesent scelerisque dui nec nibh maximus elementum. Suspendisse sagittis odio sed volutpat ornare. Fusce ac vestibulum nibh.
                   </div>
-                  <a href="index_agency.html#" class="btn btn-default">
+                  <a href="" class="btn btn-default">
                     <span class="oi oi-cart"></span> Purchase now
                   </a>
                 </div> <!-- / .pricing__items -->
@@ -521,7 +601,7 @@
                   <div class="pricing-item__summary">
                     Praesent scelerisque dui nec nibh maximus elementum. Suspendisse sagittis odio sed volutpat ornare. Fusce ac vestibulum nibh.
                   </div>
-                  <a href="index_agency.html#" class="btn btn-default">
+                  <a href="" class="btn btn-default">
                     <span class="oi oi-cart"></span> Purchase now
                   </a>
                 </div> <!-- / .pricing__items -->
@@ -537,7 +617,7 @@
                   <div class="pricing-item__summary">
                     Praesent scelerisque dui nec nibh maximus elementum. Suspendisse sagittis odio sed volutpat ornare. Fusce ac vestibulum nibh.
                   </div>
-                  <a href="index_agency.html#" class="btn btn-default">
+                  <a href="" class="btn btn-default">
                     <span class="oi oi-cart"></span> Purchase now
                   </a>
                 </div> <!-- / .pricing__items -->
@@ -576,10 +656,10 @@
                       </div>
                       <div class="col-md-6">
                         <div class="team-item__contact">
-                          <a class="team-item-contact__link" href="index_agency.html#">
+                          <a class="team-item-contact__link" href="">
                             <i class="fa fa-twitter"></i>
                           </a>
-                          <a class="team-item-contact__link team-item-contact__link_facebook" href="index_agency.html#">
+                          <a class="team-item-contact__link team-item-contact__link_facebook" href="">
                             <i class="fa fa-facebook"></i>
                           </a>
                           <div class="clearfix"></div>
@@ -601,10 +681,10 @@
                       </div>
                       <div class="col-md-6">
                         <div class="team-item__contact">
-                          <a class="team-item-contact__link" href="index_agency.html#">
+                          <a class="team-item-contact__link" href="">
                             <i class="fa fa-twitter"></i>
                           </a>
-                          <a class="team-item-contact__link team-item-contact__link_facebook" href="index_agency.html#">
+                          <a class="team-item-contact__link team-item-contact__link_facebook" href="">
                             <i class="fa fa-facebook"></i>
                           </a>
                           <div class="clearfix"></div>
@@ -626,10 +706,10 @@
                       </div>
                       <div class="col-md-6">
                         <div class="team-item__contact">
-                          <a class="team-item-contact__link" href="index_agency.html#">
+                          <a class="team-item-contact__link" href="">
                             <i class="fa fa-twitter"></i>
                           </a>
-                          <a class="team-item-contact__link team-item-contact__link_facebook" href="index_agency.html#">
+                          <a class="team-item-contact__link team-item-contact__link_facebook" href="">
                             <i class="fa fa-facebook"></i>
                           </a>
                           <div class="clearfix"></div>
@@ -651,10 +731,10 @@
                       </div>
                       <div class="col-md-6">
                         <div class="team-item__contact">
-                          <a class="team-item-contact__link" href="index_agency.html#">
+                          <a class="team-item-contact__link" href="">
                             <i class="fa fa-twitter"></i>
                           </a>
-                          <a class="team-item-contact__link team-item-contact__link_facebook" href="index_agency.html#">
+                          <a class="team-item-contact__link team-item-contact__link_facebook" href="">
                             <i class="fa fa-facebook"></i>
                           </a>
                           <div class="clearfix"></div>
@@ -719,120 +799,7 @@
       </div> <!-- / .section -->
 
 
-      <!-- TESTIMONIALS
-      ============================== -->
-      <div class="section" id="testimonials">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="review__icon">
-                <span class="oi oi-double-quote-serif-left"></span>
-              </div>
-              <h4 class="heading">What others say about us</h4>
-            </div>
-          </div> <!-- / .row -->
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
 
-              <!-- Wrapper for slides -->
-              <div id="review__carousel" class="owl-carousel owl-theme">
-
-                <div class="item">
-                  <div class="review__item">
-                    <div class="review-item__quot">
-                      Fusce eget mattis diam. In interdum, ipsum eget convallis semper, nulla lorem venenatis tellus, at feugiat sapien leo eget felis. Cras nec finibus ante. Proin ac nulla pellentesque, laoreet mauris.
-                    </div>
-                    <div class="review-item__about">
-                      <div class="review-item-about__avatar">
-                        <img class="img-responsive" src="static/img/author_1.jpg" alt="...">
-                      </div>
-                      <div class="review-item-about__content">
-                        <div class="review-item-about__name">Jane Roe</div>
-                        <div class="review-item-about__position">Front-end developer</div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div> <!-- / .review__item -->
-                </div>
-                
-                <div class="item">
-                  <div class="review__item">
-                    <div class="review-item__quot">
-                      Fusce eget mattis diam. In interdum, ipsum eget convallis semper, nulla lorem venenatis tellus, at feugiat sapien leo eget felis. Cras nec finibus ante. Proin ac nulla pellentesque, laoreet mauris.
-                    </div>
-                    <div class="review-item__about">
-                      <div class="review-item-about__avatar">
-                        <img class="img-responsive" src="static/img/author_2.jpg" alt="...">
-                      </div>
-                      <div class="review-item-about__content">
-                        <div class="review-item-about__name">John Doe</div>
-                        <div class="review-item-about__position">Front-end developer</div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div> <!-- / .review__item -->
-                </div>
-
-                <div class="item">
-                  <div class="review__item">
-                    <div class="review-item__quot">
-                      Fusce eget mattis diam. In interdum, ipsum eget convallis semper, nulla lorem venenatis tellus, at feugiat sapien leo eget felis. Cras nec finibus ante. Proin ac nulla pellentesque, laoreet mauris.
-                    </div>
-                    <div class="review-item__about">
-                      <div class="review-item-about__avatar">
-                        <img class="img-responsive" src="static/img/author_3.jpg" alt="...">
-                      </div>
-                      <div class="review-item-about__content">
-                        <div class="review-item-about__name">Elena Doe</div>
-                        <div class="review-item-about__position">Front-end developer</div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div> <!-- / .review__item -->
-                </div>
-
-                <div class="item">
-                  <div class="review__item">
-                    <div class="review-item__quot">
-                      Fusce eget mattis diam. In interdum, ipsum eget convallis semper, nulla lorem venenatis tellus, at feugiat sapien leo eget felis. Cras nec finibus ante. Proin ac nulla pellentesque, laoreet mauris.
-                    </div>
-                    <div class="review-item__about">
-                      <div class="review-item-about__avatar">
-                        <img class="img-responsive" src="static/img/author_4.jpg" alt="...">
-                      </div>
-                      <div class="review-item-about__content">
-                        <div class="review-item-about__name">Kate Doe</div>
-                        <div class="review-item-about__position">Front-end developer</div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div> <!-- / .review__item -->
-                </div>
-
-                <div class="item">
-                  <div class="review__item">
-                    <div class="review-item__quot">
-                      Fusce eget mattis diam. In interdum, ipsum eget convallis semper, nulla lorem venenatis tellus, at feugiat sapien leo eget felis. Cras nec finibus ante. Proin ac nulla pellentesque, laoreet mauris.
-                    </div>
-                    <div class="review-item__about">
-                      <div class="review-item-about__avatar">
-                        <img class="img-responsive" src="static/img/author_2.jpg" alt="...">
-                      </div>
-                      <div class="review-item-about__content">
-                        <div class="review-item-about__name">James Miles</div>
-                        <div class="review-item-about__position">Front-end developer</div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div> <!-- / .review__item -->
-                </div>
-
-              </div> <!-- / .review__carousel -->
-
-            </div>
-          </div> <!-- / .row -->
-        </div>
-      </div>
 
 
       <!-- SUBSCRIBE
@@ -863,78 +830,9 @@
       </div> <!-- / .section -->
 
 
-      <!-- CONTACT US
-      ============================== -->
-      <div class="container" id="contact">
 
-        <div class="row">
-          <div class="col-xs-12">
-            <h4 class="heading">Feel free to contact us</h4>
-            <p class="heading__sub">
-              Donec blandit ex vitae lectus malesuada ullamcorper. Praesent tempor pharetra leo, id mollis.<br />Aliquam at venenatis velit. Praesent tincidunt aliquet lectus, et auctor ex. 
-            </p>
-          </div>
-        </div> <!-- / .row -->
 
-        <div class="row">
-          <div class="col-sm-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
-
-            <!-- Alert message -->
-            <div class="alert contact-form__alert" id="form_message" role="alert"></div>
-
-            <!-- Contact form -->
-            <!-- Please carefully read the README.txt file
-             in order to setup the PHP contact form properly -->
-            <form role="form" class="contact__form" id="form_sendemail">
-              <div class="row">
-                <div class="col-sm-6">
-
-                  <!-- Email -->
-                  <div class="form-group">
-                    <label for="email" class="sr-only">Your email address</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
-                    <span class="help-block"></span>
-                  </div>
-
-                  <!-- Name -->
-                  <div class="form-group">
-                    <label for="name" class="sr-only">Your name</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Full Name">
-                    <span class="help-block"></span>
-                  </div>
-
-                  <!-- reCAPTCHA -->
-                  <div class="form-group" id="form-captcha">
-                    <div class="g-recaptcha" data-sitekey="6LfvnfsSAAAAAEki5WArkSXILHgyavBDFfVAn3gp"></div>
-                    <span class="help-block"></span>
-                  </div>
-                  <!-- /reCAPTCHA -->
-
-                </div>
-
-                <div class="col-sm-6">
-
-                  <!-- Message -->
-                  <div class="form-group">
-                    <label for="message" class="sr-only">Your message</label>
-                    <textarea name="message" class="form-control" rows="9" id="message" placeholder="Message"></textarea>
-                    <span class="help-block"></span>
-                  </div>
-                </div>
-
-              </div> <!-- / .row -->
-              
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">
-                  Send message
-                </button>
-                <div class="clearfix"></div>
-              </div>
-
-            </form>
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
+      
 
 
       <!-- FOOTER
@@ -947,13 +845,13 @@
             </div>
             <div class="col-sm-6">
               <div class="footer__social">
-                <a href="index_agency.html#" class="footer-social__link footer-social__link_twitter">
+                <a href="" class="footer-social__link footer-social__link_twitter">
                   <i class="fa fa-twitter"></i>
                 </a>
-                <a href="index_agency.html#" class="footer-social__link footer-social__link_facebook">
+                <a href="" class="footer-social__link footer-social__link_facebook">
                   <i class="fa fa-facebook"></i>
                 </a>
-                <a href="index_agency.html#" class="footer-social__link footer-social__link_google-plus">
+                <a href="" class="footer-social__link footer-social__link_google-plus">
                   <i class="fa fa-google-plus"></i>
                 </a>
               </div>

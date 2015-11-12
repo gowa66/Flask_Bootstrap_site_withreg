@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- SIGN UP
+    ============================== -->
+    <div class="sign-in-up__wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+
+            <h4 class="heading sign-in-up__heading">Registration</h4>
+            <p class="heading__sub sign-in-up-heading__sub">
+              Please create your acc.
+            </p>           
+
+            <form class="form_alt sign-in-up__form" role="form" method="post" action="">
+              {{ form.csrf_token }}          
+              <div class="form-group">              
+                <input type="text" class="form-control" {{ form.username(placeholder="Username") }}
+              </div>
+              <span class="error">
+                {% if form.username.errors %}
+                  {% for error in form.username.errors %}
+                    {{ error }}
+                  {% endfor %}
+                {% endif %}
+              </span> 
+              <div class="form-group">              
+                <input type="email" class="form-control" {{ form.email(placeholder="E-mail") }}
+              </div>
+              <span class="error">
+                {% if form.email.errors %}
+                  {% for error in form.email.errors %}
+                    {{ error }}
+                  {% endfor %}
+                {% endif %}
+              </span>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">                      
+                      <input type="password" class="form-control" {{ form.password(placeholder="Password") }}
+                    </div>
+                    <span class="error">
+                      {% if form.password.errors %}
+                        {% for error in form.password.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      {% endif %}
+                    </span>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">                      
+                      <input type="password" class="form-control" {{ form.confirm(placeholder="Confirm") }}
+                    </div>
+                    <span class="error">
+                      {% if form.confirm.errors %}
+                        {% for error in form.confirm.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      {% endif %}
+                    </span> 
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+
+            <!-- Sign In link -->
+            <div class="sign-in-up__footer">
+              Already a member? <a href="/login">Sign In</a>
+            </div>
+
+          </div>
+        </div>
+      </div> <!-- / .container -->
+    </div> <!-- / .sign-in-up__wrapper -->
+
+
+
+{% endblock %}
